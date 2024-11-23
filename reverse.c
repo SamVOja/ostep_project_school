@@ -32,6 +32,11 @@ Node *read_from_stdin() {
 
     while (getline(&line, &line_size, stdin) != -1) {
         //getline dynamically allocates the buffer size
+        size_t len = strlen(line);
+        // if line ends with a newline, remove the newline
+        if (len > 0 && line[len - 1] == '\n') {
+            line[len - 1] = '\0';
+        }
         Node *new_node = malloc(sizeof(Node));
         if (!new_node) {
             fprintf(stderr, "malloc failed\n");
